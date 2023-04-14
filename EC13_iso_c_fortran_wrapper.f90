@@ -8,34 +8,37 @@
 ! -------------------------------------------------------------------
 
 ! Mathieu angular functions Se_m, So_m
-real(c_double_complex) function MathieuAngular_wrap(parity,der,n,Q,x,k_max, choice, D_m, norm) bind(C)
+function MathieuAngular_wrap(parity,der,n,Q,x,k_max, choice, D_m, norm) result(MAW) bind(C)
     !DEC$ ATTRIBUTES DLLEXPORT :: MathieuAngular_wrap
 
     ! State ISO_C_BINDING and no implicit variable types.
     use iso_c_binding
     use Blanch_Complex
-    use Constants
     implicit none
 
     ! State intent of FORTRAN variables.
     real(c_double), value, intent(in)     :: x
-    real(c_double_complex), value, intent(in)     :: Q, norm
+    complex(c_double_complex), value, intent(in)     :: Q
     integer(c_int), value, intent(in)     :: parity, der, n, choice
-    integer(c_int), intent(out)           :: k_max
-    type(c_ptr), intent(out) :: D_m
+    integer(c_int), intent(inout)           :: k_max
+    complex(c_double_complex), dimension(*), intent(inout) :: D_m
+    complex(c_double_complex), intent(inout)    :: norm
+
+    complex(c_double_complex) :: MAW
 
     ! Interface to original FORTRAN subroutine.
-    interface
-            function MathieuAngular(parity,der,n,Q,x,k_max, choice, D_m, norm)
-                    integer,intent(in) :: parity, der, n, choice
-                    integer, intent(out):: K_max
-                    complex(kind=double), intent(in):: Q
-                    real(kind=double), intent(in):: x
-                    complex(kind=double), intent(out)::norm
-                    complex(kind=double) :: MathieuAngular
-                    complex(kind=double), dimension(0:MAX_), intent(out) :: D_m
-            END function MathieuAngular
-    end interface
+    !interface
+    !        function MathieuAngular(parity,der,n,Q,x,k_max, choice, D_m, norm)
+    !                INTEGER parity, der, n, choice
+    !                INTEGER K_max
+    !                COMPLEX DOUBLE PRECISION Q
+    !                DOUBLE PRECISION x
+    !                COMPLEX DOUBLE PRECISION norm
+    !                COMPLEX DOUBLE PRECISION MathieuAngular
+    !                COMPLEX DOUBLE PRECISION D_m
+    !        END function MathieuAngular
+    !end interface
 
-    MathieuAngular_wrap=MathieuAngular(parity,der,n,Q,x,k_max, choice, D_m, norm)
+    MAW=MathieuAngular(parity,der,n,Q,x,k_max, choice, D_m, norm)
+
 end function MathieuAngular_wrap

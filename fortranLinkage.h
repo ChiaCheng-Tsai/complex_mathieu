@@ -30,7 +30,7 @@ namespace c_mathieu {
 extern "C"
 {
   /*! Mathieu angular functions Se_m, So_m. */
-  extern double complex MathieuAngular_wrap(int, int, int, double complex, double, int*, int,double complex*,double complex*);
+  extern double _Complex MathieuAngular_wrap(int, int, int,double _Complex, double, int*, int,double _Complex*,double _Complex*);
 }
 ///@}
 
