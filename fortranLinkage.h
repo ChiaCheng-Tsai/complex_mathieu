@@ -18,6 +18,8 @@
 #ifndef FORTRANLINKAGE_H
 #define FORTRANLINKAGE_H
 
+#include <complex.h>
+
 namespace c_mathieu {
 /*! @name Fortran Linkage
  * We link the Fortran subroutines to our C++ code.
@@ -28,10 +30,10 @@ namespace c_mathieu {
 extern "C"
 {
   /*! Mathieu angular functions Se_m, So_m. */
-  extern void MathieuAngular_wrap(double, double, double, int, int, double*, double*, int*, int*);
+  extern double complex MathieuAngular_wrap(int, int, int, double complex, double, int*, int,double complex*,double complex*);
 }
 ///@}
 
-} // namespace sp_bessel
+} // namespace c_mathieu
 
 #endif // FORTRANLINKAGE_H

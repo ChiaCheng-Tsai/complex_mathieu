@@ -19,9 +19,8 @@ real(c_double_complex) function MathieuAngular_wrap(parity,der,n,Q,x,k_max, choi
 
     ! State intent of FORTRAN variables.
     real(c_double), value, intent(in)     :: x
-    real(c_double_complex), value, intent(in)     :: Q
+    real(c_double_complex), value, intent(in)     :: Q, norm
     integer(c_int), value, intent(in)     :: parity, der, n, choice
-    real(c_double), intent(out)           :: cyr, cyi
     integer(c_int), intent(out)           :: k_max
     type(c_ptr), intent(out) :: D_m
 
