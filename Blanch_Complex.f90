@@ -23,20 +23,20 @@ contains
 !   ==========================================================
 !   Purpose
 !   Compute the Mathieu angular functions Se_m, So_m
-!   parity:    0 Even, Re, ..
-!          1 Odd, Ro, ...
+!   parity:    0 Even, Se, ..
+!              1 Odd, So, ...
 !   der:     0 No derivatives required
-!          1 Derivatives are required
+!            1 Derivatives are required
 !   n:      order of the Mathieu function
 !   Q:      parameter of the Mathieu function, according to the notation of NcLachlan
-!   x       argument of the Mathieu function
-!     k_max:    index of the last element of D_m, i.e. D_m contains k_max+1 elements
-!   choice:      type of Normalization
+!   x:      argument of the Mathieu function
+!   k_max:  index of the last element of D_m, i.e. D_m contains k_max+1 elements
+!   choice: type of Normalization
 !                    1 Stratton
 !                    2 Ince
 !                    3 Neutral
-!     D_m      expansion coefficients
-!   norm     Normalization
+!   D_m:    expansion coefficients
+!   norm:   Normalization
 !   =============================================================
 
 
@@ -46,13 +46,13 @@ contains
      integer, intent(out):: K_max
      complex(kind=double), intent(in):: Q
      real(kind=double), intent(in):: x
-   complex(kind=double), intent(out)::norm
-   complex(kind=double) :: MathieuAngular
+     complex(kind=double), intent(out)::norm
+     complex(kind=double) :: MathieuAngular
      complex(kind=double), dimension(0:MAX_), intent(out) :: D_m
 
    integer :: steps,p,case_type, comp_coeff
    real(kind=double):: Q0,A0,iDeltaQ, X1, PI2,PI
-     complex(kind=double):: Q1,QT, A, S1, S2, DS1, DS2, Snorm
+   complex(kind=double):: Q1,QT, A, S1, S2, DS1, DS2, Snorm
 
    pi=dacos(-one)
 
@@ -209,32 +209,29 @@ end function MathieuAngular
 !   ==========================================================
 
    function MathieuRadial(parity,radial_kind,der,n,Q,x,k_max, choice, sign)
-
 !
 !     copyright by Danilo Erricolo
 !     University of Illinois at Chicago
 !     Oct 1, 2002
 !   Modified on Feb. 7, 2009
-
 !   ==========================================================
 !   Purpose
 !   Compute the Mathieu radial functions Re1,Re2,Re3,Re4,Ro1,Ro2,Ro3,Ro4
 !   parity:      0 Even, Re, ..
-!                    1 Odd, Ro, ...
-!   radial_kind  1,2,3,4
-!   der            0 No derivatives required
-!                    1 Derivatives are required
-!   n             order of the Mathieu function
-!   Q             parameter of the Mathieu function, according to the notation of Blanch
-!   x             argument of the Mathieu function
-!     k_max         index of the last element of D_m, i.e. D_m contains k_max+1 elements
+!                1 Odd, Ro, ...
+!   radial_kind: 1,2,3,4
+!   der:         0 No derivatives required
+!                1 Derivatives are required
+!   n:           order of the Mathieu function
+!   Q:           parameter of the Mathieu function, according to the notation of Blanch
+!   x:           argument of the Mathieu function
+!   k_max:       index of the last element of D_m, i.e. D_m contains k_max+1 elements
 !   choice:      type of Normalization
 !                    1 Stratton
 !                    2 Ince
 !                    3 Neutral
-!     sign         1 or -1 depending on the sign of sqrt(Q) that appears in the argument of the radial functions
+!   sign:        1 or -1 depending on the sign of sqrt(Q) that appears in the argument of the radial functions
 !   =============================================================
-
 
      use constants
    IMPLICIT NONE
