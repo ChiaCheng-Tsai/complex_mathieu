@@ -1,10 +1,10 @@
 ! -------------------------------------------------------------------
-! - Author:             Chia-Cheng Tsai <joey.dumont@gmail.com>     -       -
+! - Author:             Chia-Cheng Tsai <cctsai@mail.ntou.edu.tw>   -
 ! - Date created:       2023-04-13                                  -
 ! - Date modded:        2023-04-13                                  -
 ! - Description:        ISO C Binding wrapper for the FORTRAN       -
 !                       subroutines contained in Mathieu function   -
-!                       TOMS Algorithm 934 library.                 -          -
+!                       TOMS Algorithm 934 library.                 -
 ! -------------------------------------------------------------------
 
 ! Mathieu angular functions Se_m, So_m
