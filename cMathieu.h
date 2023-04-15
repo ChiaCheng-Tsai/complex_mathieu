@@ -1,7 +1,5 @@
-/*! \file fortranLinkage.h
+/*! \file c_mathieu.h
  *
- * \author Joey Dumont <joey.dumont@gmail.com>
- * \author Denis Gagnon <gagnon88@gmail.com>
  * \author Chia-Cheng Tsai <cctsai@mail.ntou.edu.tw>
  *
  * \brief Specifies the linkage to the Fortran subroutines
@@ -60,7 +58,7 @@ extern "C"
 !   Qr,Qi:       parameter of the Mathieu function, according to the notation of Blanch
 !   x:           argument of the Mathieu function
 !   k_max:       index of the last element of D_m, i.e. D_m contains k_max+1 elements
-!   choice:      type of Normalization
+!   choice:      type of Normalization (Tsai, 2023, 4, 15: no use, the real normalization needs to be dependent on the plane wave series)
 !                    1 Stratton
 !                    2 Ince
 !                    3 Neutral
@@ -69,6 +67,134 @@ extern "C"
   extern double _Complex MathieuRadial_wrap(int ,int ,int ,int ,double ,double ,double ,int* ,int ,int);
 }
 ///@}
+
+ inline std::complex<double> Mathieu_ce(int n,std::complex<double> Q,double x)
+ {
+  int k_max;
+  double _Complex D_m[200],norm;
+  double _Complex result=c_mathieu::MathieuAngular_wrap(0,0,n,Q.real(),Q.imag(),x,&k_max,2 /* dummy */,D_m,&norm);
+  return std::complex<double>(creal(result),cimag(result));
+ }
+
+ inline std::complex<double> Mathieu_se(int n,std::complex<double> Q,double x)
+ {
+  int k_max;
+  double _Complex D_m[200],norm;
+  double _Complex result=c_mathieu::MathieuAngular_wrap(1,0,n,Q.real(),Q.imag(),x,&k_max,2 /* dummy */,D_m,&norm);
+  return std::complex<double>(creal(result),cimag(result));
+ }
+
+ inline std::complex<double> Mathieu_Mc1(int n,std::complex<double> Q,double x,int Sign=1)
+ {
+  int k_max;
+  double _Complex result=c_mathieu::MathieuRadial_wrap(0,1,0,n,Q.real(),Q.imag(),x,&k_max,2 /* dummy */,Sign);
+  return std::complex<double>(creal(result),cimag(result));
+ }
+
+ inline std::complex<double> Mathieu_Ms1(int n,std::complex<double> Q,double x,int Sign=1)
+ {
+  int k_max;
+  double _Complex result=c_mathieu::MathieuRadial_wrap(1,1,0,n,Q.real(),Q.imag(),x,&k_max,2 /* dummy */,Sign);
+  return std::complex<double>(creal(result),cimag(result));
+ }
+
+ inline std::complex<double> Mathieu_Mc2(int n,std::complex<double> Q,double x,int Sign=1)
+ {
+  int k_max;
+  double _Complex result=c_mathieu::MathieuRadial_wrap(0,2,0,n,Q.real(),Q.imag(),x,&k_max,2 /* dummy */,Sign);
+  return std::complex<double>(creal(result),cimag(result));
+ }
+
+ inline std::complex<double> Mathieu_Ms2(int n,std::complex<double> Q,double x,int Sign=1)
+ {
+  int k_max;
+  double _Complex result=c_mathieu::MathieuRadial_wrap(1,2,0,n,Q.real(),Q.imag(),x,&k_max,2 /* dummy */,Sign);
+  return std::complex<double>(creal(result),cimag(result));
+ }
+
+ inline std::complex<double> Mathieu_Mc3(int n,std::complex<double> Q,double x,int Sign=1)
+ {
+  int k_max;
+  double _Complex result=c_mathieu::MathieuRadial_wrap(0,3,0,n,Q.real(),Q.imag(),x,&k_max,2 /* dummy */,Sign);
+  return std::complex<double>(creal(result),cimag(result));
+ }
+
+ inline std::complex<double> Mathieu_Ms3(int n,std::complex<double> Q,double x,int Sign=1)
+ {
+  int k_max;
+  double _Complex result=c_mathieu::MathieuRadial_wrap(1,3,0,n,Q.real(),Q.imag(),x,&k_max,2 /* dummy */,Sign);
+  return std::complex<double>(creal(result),cimag(result));
+ }
+
+ inline std::complex<double> Mathieu_Mc4(int n,std::complex<double> Q,double x,int Sign=1)
+ {
+  int k_max;
+  double _Complex result=c_mathieu::MathieuRadial_wrap(0,4,0,n,Q.real(),Q.imag(),x,&k_max,2 /* dummy */,Sign);
+  return std::complex<double>(creal(result),cimag(result));
+ }
+
+ inline std::complex<double> Mathieu_Ms4(int n,std::complex<double> Q,double x,int Sign=1)
+ {
+  int k_max;
+  double _Complex result=c_mathieu::MathieuRadial_wrap(1,4,0,n,Q.real(),Q.imag(),x,&k_max,2 /* dummy */,Sign);
+  return std::complex<double>(creal(result),cimag(result));
+ }
+
+ inline std::complex<double> Mathieu_DMc1(int n,std::complex<double> Q,double x,int Sign=1)
+ {
+  int k_max;
+  double _Complex result=c_mathieu::MathieuRadial_wrap(0,1,1,n,Q.real(),Q.imag(),x,&k_max,2 /* dummy */,Sign);
+  return std::complex<double>(creal(result),cimag(result));
+ }
+
+ inline std::complex<double> Mathieu_DMs1(int n,std::complex<double> Q,double x,int Sign=1)
+ {
+  int k_max;
+  double _Complex result=c_mathieu::MathieuRadial_wrap(1,1,1,n,Q.real(),Q.imag(),x,&k_max,2 /* dummy */,Sign);
+  return std::complex<double>(creal(result),cimag(result));
+ }
+
+ inline std::complex<double> Mathieu_DMc2(int n,std::complex<double> Q,double x,int Sign=1)
+ {
+  int k_max;
+  double _Complex result=c_mathieu::MathieuRadial_wrap(0,2,1,n,Q.real(),Q.imag(),x,&k_max,2 /* dummy */,Sign);
+  return std::complex<double>(creal(result),cimag(result));
+ }
+
+ inline std::complex<double> Mathieu_DMs2(int n,std::complex<double> Q,double x,int Sign=1)
+ {
+  int k_max;
+  double _Complex result=c_mathieu::MathieuRadial_wrap(1,2,1,n,Q.real(),Q.imag(),x,&k_max,2 /* dummy */,Sign);
+  return std::complex<double>(creal(result),cimag(result));
+ }
+
+ inline std::complex<double> Mathieu_DMc3(int n,std::complex<double> Q,double x,int Sign=1)
+ {
+  int k_max;
+  double _Complex result=c_mathieu::MathieuRadial_wrap(0,3,1,n,Q.real(),Q.imag(),x,&k_max,2 /* dummy */,Sign);
+  return std::complex<double>(creal(result),cimag(result));
+ }
+
+ inline std::complex<double> Mathieu_DMs3(int n,std::complex<double> Q,double x,int Sign=1)
+ {
+  int k_max;
+  double _Complex result=c_mathieu::MathieuRadial_wrap(1,3,1,n,Q.real(),Q.imag(),x,&k_max,2 /* dummy */,Sign);
+  return std::complex<double>(creal(result),cimag(result));
+ }
+
+ inline std::complex<double> Mathieu_DMc4(int n,std::complex<double> Q,double x,int Sign=1)
+ {
+  int k_max;
+  double _Complex result=c_mathieu::MathieuRadial_wrap(0,4,1,n,Q.real(),Q.imag(),x,&k_max,2 /* dummy */,Sign);
+  return std::complex<double>(creal(result),cimag(result));
+ }
+
+ inline std::complex<double> Mathieu_DMs4(int n,std::complex<double> Q,double x,int Sign=1)
+ {
+  int k_max;
+  double _Complex result=c_mathieu::MathieuRadial_wrap(1,4,1,n,Q.real(),Q.imag(),x,&k_max,2 /* dummy */,Sign);
+  return std::complex<double>(creal(result),cimag(result));
+ }
 
 } // namespace c_mathieu
 

@@ -226,7 +226,7 @@ end function MathieuAngular
 !   Q:           parameter of the Mathieu function, according to the notation of Blanch
 !   x:           argument of the Mathieu function
 !   k_max:       index of the last element of D_m, i.e. D_m contains k_max+1 elements
-!   choice:      type of Normalization
+!   choice:      type of Normalization (Tsai, 2023, 4, 15: no use, the real normalization needs to be dependent on the plane wave series)
 !                    1 Stratton
 !                    2 Ince
 !                    3 Neutral
