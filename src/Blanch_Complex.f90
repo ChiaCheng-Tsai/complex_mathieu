@@ -226,7 +226,7 @@ end function MathieuAngular
 !   Q:           parameter of the Mathieu function, according to the notation of Blanch
 !   x:           argument of the Mathieu function
 !   k_max:       index of the last element of D_m, i.e. D_m contains k_max+1 elements
-!   choice:      type of Normalization (Tsai, 2023, 4, 15: no use, the real normalization needs to be dependent on the plane wave series)
+!   choice:      type of Normalization (Tsai, 2023, 4, 15: choice no use, Normalization parameter SQRT(PI/2) is deleted according to the plane wave series)
 !                    1 Stratton
 !                    2 Ince
 !                    3 Neutral
@@ -1532,8 +1532,10 @@ SUBROUTINE Compute_Radial_functions(KC,case_type, N,Q,X,D_m,KM,R1, R1p, R2, R2p,
                 R1p=R1p+(-1)**K*D_M(K)*(U1*DJ1(K+1)*BJ2(K)-U2*BJ1(K+1)*DJ2(K)-U1*DJ1(K)*BJ2(K+1)+U2*BJ1(K)*DJ2(K+1))
             END DO
         END IF
-        R1= (-1)**R*dsqrt(pi/2.0D0)*R1 /D_m(0)
-        R1p=(-1)**R*dsqrt(pi/2.0D0)*R1p/D_m(0)
+        !R1= (-1)**R*dsqrt(pi/2.0D0)*R1 /D_m(0)
+        !R1p=(-1)**R*dsqrt(pi/2.0D0)*R1p/D_m(0)
+        R1= (-1)**R*R1 /D_m(0)
+        R1p=(-1)**R*R1p/D_m(0)
     END IF
 
     IF ( (KC==2) .OR. (KC==3)) THEN
@@ -1561,8 +1563,10 @@ SUBROUTINE Compute_Radial_functions(KC,case_type, N,Q,X,D_m,KM,R1, R1p, R2, R2p,
                 R2p=R2p+(-1)**K*D_m(K)*(U1*DY1(K+1)*BJ2(K)-U2*BY1(K+1)*DJ2(K)-U1*DY1(K)*BJ2(K+1)+U2*BY1(K)*DJ2(K+1))
             END DO
         END IF
-        R2= (-1)**R*dsqrt(pi/2.0D0)*R2 /D_m(0)
-        R2p=(-1)**R*dsqrt(pi/2.0D0)*R2p/D_m(0)
+        !R2= (-1)**R*dsqrt(pi/2.0D0)*R2 /D_m(0)
+        !R2p=(-1)**R*dsqrt(pi/2.0D0)*R2p/D_m(0)
+        R2= (-1)**R*R2 /D_m(0)
+        R2p=(-1)**R*R2p/D_m(0)
     END IF
 END subroutine Compute_Radial_functions
 !===============================================================
