@@ -17,6 +17,9 @@
 #define C_Mathieu_H
 
 #include <complex.h>
+
+#undef I
+
 #include <complex>
 
 namespace c_mathieu {
@@ -72,7 +75,7 @@ extern "C"
  {
   int k_max;
   double _Complex D_m[200],norm;
-  double _Complex result=c_mathieu::MathieuAngular_wrap(0,0,n,Q.real(),Q.imag(),x,&k_max,2 /* dummy */,D_m,&norm);
+  double _Complex result=c_mathieu::MathieuAngular_wrap(0,0,n,Q.real(),Q.imag(),x,&k_max,2 /* Mathematica choice */,D_m,&norm);
   return std::complex<double>(creal(result),cimag(result));
  }
 
@@ -80,7 +83,7 @@ extern "C"
  {
   int k_max;
   double _Complex D_m[200],norm;
-  double _Complex result=c_mathieu::MathieuAngular_wrap(1,0,n,Q.real(),Q.imag(),x,&k_max,2 /* dummy */,D_m,&norm);
+  double _Complex result=c_mathieu::MathieuAngular_wrap(1,0,n,Q.real(),Q.imag(),x,&k_max,2 /* Mathematica choice */,D_m,&norm);
   return std::complex<double>(creal(result),cimag(result));
  }
 
@@ -194,6 +197,78 @@ extern "C"
   int k_max;
   double _Complex result=c_mathieu::MathieuRadial_wrap(1,4,1,n,Q.real(),Q.imag(),x,&k_max,2 /* dummy */,Sign);
   return std::complex<double>(creal(result),cimag(result));
+ }
+
+ inline std::complex<double> Mathieu_me(int n,std::complex<double> Q,double x)
+ {
+  if(n>=0)
+   return sqrt(2.)*Mathieu_ce(n,Q,x);
+  else
+   return -sqrt(2.)*std::complex<double>(0,1)*Mathieu_se(-n,Q,x);
+ }
+
+ inline std::complex<double> Mathieu_M1(int n,std::complex<double> Q,double x,int Sign=1)
+ {
+  if(n>=0)
+   return Mathieu_Mc1(n,Q,x,Sign);
+  else
+   return (n%2?-1.:1.)*Mathieu_Ms1(-n,Q,x,Sign);
+ }
+
+ inline std::complex<double> Mathieu_M2(int n,std::complex<double> Q,double x,int Sign=1)
+ {
+  if(n>=0)
+   return Mathieu_Mc2(n,Q,x,Sign);
+  else
+   return (n%2?-1.:1.)*Mathieu_Ms2(-n,Q,x,Sign);
+ }
+
+ inline std::complex<double> Mathieu_M3(int n,std::complex<double> Q,double x,int Sign=1)
+ {
+  if(n>=0)
+   return Mathieu_Mc3(n,Q,x,Sign);
+  else
+   return (n%2?-1.:1.)*Mathieu_Ms3(-n,Q,x,Sign);
+ }
+
+ inline std::complex<double> Mathieu_M4(int n,std::complex<double> Q,double x,int Sign=1)
+ {
+  if(n>=0)
+   return Mathieu_Mc4(n,Q,x,Sign);
+  else
+   return (n%2?-1.:1.)*Mathieu_Ms4(-n,Q,x,Sign);
+ }
+
+ inline std::complex<double> Mathieu_DM1(int n,std::complex<double> Q,double x,int Sign=1)
+ {
+  if(n>=0)
+   return Mathieu_DMc1(n,Q,x,Sign);
+  else
+   return (n%2?-1.:1.)*Mathieu_DMs1(-n,Q,x,Sign);
+ }
+
+ inline std::complex<double> Mathieu_DM2(int n,std::complex<double> Q,double x,int Sign=1)
+ {
+  if(n>=0)
+   return Mathieu_DMc2(n,Q,x,Sign);
+  else
+   return (n%2?-1.:1.)*Mathieu_DMs2(-n,Q,x,Sign);
+ }
+
+ inline std::complex<double> Mathieu_DM3(int n,std::complex<double> Q,double x,int Sign=1)
+ {
+  if(n>=0)
+   return Mathieu_DMc3(n,Q,x,Sign);
+  else
+   return (n%2?-1.:1.)*Mathieu_DMs3(-n,Q,x,Sign);
+ }
+
+ inline std::complex<double> Mathieu_DM4(int n,std::complex<double> Q,double x,int Sign=1)
+ {
+  if(n>=0)
+   return Mathieu_DMc4(n,Q,x,Sign);
+  else
+   return (n%2?-1.:1.)*Mathieu_DMs4(-n,Q,x,Sign);
  }
 
 } // namespace c_mathieu
